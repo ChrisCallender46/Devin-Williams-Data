@@ -1,0 +1,75 @@
+library(tidyverse)
+
+advanced_stats <- Williams_Advanced_Stats
+batted_ball <- Williams_Batted_Ball_Data
+fangraphs <- Williams_Fangraphs_Stats
+more_batted_ball <- Williams_More_Batted_Ball_Data
+pitch_type <- Williams_Pitch_Type_and_Velo
+pitch_values <- Williams_Pitch_Values_Data
+plate_discipline <- Williams_Plate_Discipline_Data
+standard <- Williams_Standard_Stats
+statcast <- Williams_Statcast_Data
+
+
+# Merge batted ball
+batted_ball_merge <- merge(more_batted_ball, batted_ball, by = c("Season", "Team", "Level"))
+batted_ball <- batted_ball_merge
+
+# Merge stats
+stats <- merge(standard, fangraphs, by = c("Season", "Team", "Level", "W", "L", "ERA", "G", "GS", "SV", "IP"))
+stats <- stats |>
+  relocate(Age, .after = Level)
+
+advanced_stats_clean <- advanced_stats |>
+  select(!c("K/9", "BB/9", "HR/9", "BABIP", "LOB%", "FIP"))
+  
+stats_merge <- merge(stats, advanced_stats_clean, by = c("Season", "Team", "Level")) # "K/9", BB/9", "HR/9", "BABIP", "LOB%", "FIP"))
+stats <- stats_merge
+
+#Merge pitches
+pitches <- pitch_values |>
+  select(Season:wFA, wCH, `wFA/C`, `wCH/C`)
+
+pitches_type <- pitch_type |>
+  select(Season:vFA, `CH%`, vCH)
+
+pitch_data <- merge(pitches_type, pitches, by = c("Season", "Team", "Level"))
+
+
+# 5 final dataframes
+View(batted_ball)
+# Increase in EV (exit velo), LA (launch angle), barrel %, GB %, Hard %, xFIP
+# Williams usually has success by avoiding barrels, inducing ground balls, and avoiding hard hits
+# However, he has not done that this year
+# That is causing him to not be successful 
+
+# Make time series graphs to show this (x = season, y = stat)
+
+View(stats)
+# ERA, xERA, FIP, xFIP, K/9, BB/9, BABIP, AVG, WHIP
+# Williams is not striking out as many batters as usual
+# He also usually excels at getting ground balls
+# This year his strikeouts are down, getting less ground balls, and more balls put in play are hits
+
+View(pitch_data)
+# His fastball is much less effective this year, due to a loss of velocity
+# His changeup is also less effective this year
+# Those are the only 2 pitches he has thrown this year
+# In previous years he will sometimes mix in a cutter, slider, or sinker
+
+View(plate_discipline)
+# Getting fewer chases on balls out of zone
+# More contact
+# Fewer swings and misses
+
+View(statcast)
+# EV, LA, Barrel%, and HardHit% all increase
+# ERA and xERA by far the worst of his career
+
+
+
+
+
+
+
+
