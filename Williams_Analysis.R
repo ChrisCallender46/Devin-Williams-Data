@@ -38,12 +38,36 @@ pitch_data <- merge(pitches_type, pitches, by = c("Season", "Team", "Level"))
 
 # 5 final dataframes
 View(batted_ball)
+cor.test(batted_ball$EV, batted_ball$xFIP) # EV and xFIP highly correlated and EV is statistically significant
+cor.test(batted_ball$LA, batted_ball$xFIP) # Not stat sig
+
+# Turn barrel % into decimal
+barrel_decimal <- as.numeric(sub("%", "", batted_ball$`Barrel%`, fixed=TRUE))/100
+cor.test(barrel_decimal, batted_ball$xFIP) # Not stat sig
+
+# Turn hard % into decimal
+hard_decimal <- as.numeric(sub("%", "", batted_ball$`Hard%`, fixed=TRUE))/100
+cor.test(hard_decimal, batted_ball$xFIP) # Not stat sig
+
+# Turn gb% into decimal
+gb_decimal <- as.numeric(sub("%", "", batted_ball$`GB%`, fixed=TRUE))/100
+cor.test(gb_decimal, batted_ball$xFIP) # Very stong negative correlation and highly stat sig
+# High Ground ball rate leads to lower xFIP and low ground ball rate leads to higher xFIP
+
 # Increase in EV (exit velo), LA (launch angle), barrel %, GB %, Hard %, xFIP
 # Williams usually has success by avoiding barrels, inducing ground balls, and avoiding hard hits
 # However, he has not done that this year
 # That is causing him to not be successful 
 
 # Make time series graphs to show this (x = season, y = stat)
+
+ggplot(batted_ball, aes(x = Season, y = EV)) +
+  geom_smooth() +
+  ylim(83, 89)
+
+ggplot(batted_ball, aes(x = Season, y = gb_decimal)) +
+  geom_smooth() +
+  ylim(.35, .62)
 
 View(stats)
 # ERA, xERA, FIP, xFIP, K/9, BB/9, BABIP, AVG, WHIP
