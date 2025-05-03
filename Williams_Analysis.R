@@ -70,6 +70,42 @@ ggplot(batted_ball, aes(x = Season, y = gb_decimal)) +
   ylim(.35, .62)
 
 View(stats)
+
+ggplot(stats, aes(x = Season, y = ERA)) +
+  geom_smooth() +
+  ylim(0, 12)
+
+ggplot(stats, aes(x = Season, y = xERA)) +
+  geom_smooth() +
+  ylim(1, 7)
+
+ggplot(stats, aes(x = Season, y = FIP)) +
+  geom_smooth() +
+  ylim(2, 5)
+
+ggplot(stats, aes(x = Season, y = xFIP)) +
+  geom_smooth() +
+  ylim(1, 6.5)
+
+ggplot(stats, aes(x = Season, y = `K/9`)) +
+  geom_smooth() +
+  ylim(9, 18)
+
+# Turn K% into decimal
+k_decimal <- as.numeric(sub("%", "", stats$`K%`, fixed = TRUE))/100
+
+ggplot(stats, aes(x = Season, y = k_decimal)) +
+  geom_smooth() +
+  ylim(.15, .55)
+
+ggplot(stats, aes(x = Season, y = `BB/9`)) +
+  geom_smooth() +
+  ylim(3, 8)
+
+ggplot(stats, aes(x = Season, y = BABIP)) +
+  geom_smooth() +
+  ylim(.19, .43)
+
 # ERA, xERA, FIP, xFIP, K/9, BB/9, BABIP, AVG, WHIP
 # Williams is not striking out as many batters as usual
 # He also usually excels at getting ground balls
