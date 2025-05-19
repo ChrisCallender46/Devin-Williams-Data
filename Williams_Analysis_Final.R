@@ -191,4 +191,48 @@ cor.test(o_swing_decimal, batted_ball$EV) #SS, HNC
 cor.test(SwStr_decimal, k_decimal) #SS, HPC
 
 
+# corr final
+
+cor.test(batted_ball$EV, stats$ERA) #SS, HPC
+cor.test(batted_ball$EV, stats$xERA) #SS, HPC
+cor.test(batted_ball$EV, stats$FIP) #SS, HPC
+cor.test(batted_ball$EV, stats$xFIP) #SS, HPC
+
+cor.test(gb_decimal, batted_ball$xFIP) # SS, HNC
+cor.test(gb_decimal, stats$xERA) #SS, HNC
+cor.test(gb_decimal, stats$FIP) #SS, HNC
+cor.test(gb_decimal, stats$ERA) #NSS, NC
+
+cor.test(k_decimal, stats$ERA) #SS, HNC
+cor.test(k_decimal, stats$xERA) #SS, HNC
+cor.test(k_decimal, stats$FIP) #SS, HNC
+cor.test(k_decimal, stats$xFIP) #SS, HNC
+
+cor.test(o_swing_decimal, stats$xERA) #SS, HNC
+cor.test(o_swing_decimal, stats$FIP) #SS, HNC
+cor.test(o_swing_decimal, stats$xFIP) #SS, HNC
+cor.test(o_swing_decimal, stats$ERA) #NSS, NC
+
+cor.test(contact_decimal, stats$ERA) #SS, HPC
+cor.test(contact_decimal, stats$FIP) #SS, HPC
+cor.test(contact_decimal, stats$xERA) #SS, HPC
+cor.test(contact_decimal, stats$xFIP) #SS, HPC
+
+cor.test(SwStr_decimal, stats$ERA) #SS, HNC
+cor.test(SwStr_decimal, stats$xERA) #SS, HNC
+cor.test(SwStr_decimal, stats$FIP) #SS, HNC
+cor.test(SwStr_decimal, stats$xFIP) #SS, HNC
+
+# Chasing out of zone leads to more strikeouts
+cor.test(o_swing_decimal, k_decimal) #SS, HPC
+
+# Chasing out of zone leads to more weak hit balls
+cor.test(o_swing_decimal, batted_ball$EV) #SS, HNC
+
+# Swing and miss leads to strikeouts
+cor.test(SwStr_decimal, k_decimal) #SS, HPC
+
+
+
+
 
